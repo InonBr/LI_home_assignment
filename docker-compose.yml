@@ -10,6 +10,7 @@ services:
 
   backend:
     container_name: back_end
+    env_file: './back_end/.env'
     build:
       context: ./back_end
       dockerfile: ./Dockerfile
