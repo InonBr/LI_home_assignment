@@ -7,19 +7,24 @@ const jwt = require('jsonwebtoken');
 const { check, validationResult } = require('express-validator');
 
 router.post('/createAdminUser', async (req, res) => {
-  const password = await bcrypt.hash('admin', 10);
+  try {
+    const password = await bcrypt.hash('admin', 10);
 
-  const newUser = User({
-    userName: 'admin',
-    password,
-  });
+    const newUser = User({
+      userName: 'admin',
+      password,
+    });
 
-  await newUser.save();
+    await newUser.save();
 
-  return res.status(200).json({
-    msg: 'user saved successfully',
-    user: newUser,
-  });
+    return res.status(200).json({
+      msg: 'user saved successfully',
+      user: newUser,
+    });
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send({ err: 'Server error', message: err.message });
+  }
 });
 
 router.post(

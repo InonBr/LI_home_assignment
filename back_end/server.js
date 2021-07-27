@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const cors = require('cors');
+const createIfNotExist = require('./lib/createAdminUser');
 const users_routers = require('./routers/users_routers');
 
 const connectDB = require('./db/db');
@@ -15,6 +16,7 @@ app.use('/api', users_routers);
 connectDB().then(() => {
   console.log('🔵 MongoDB connected...');
   app.listen(port, () => {
+    createIfNotExist();
     console.log(`🟢 App listening at http://localhost:${port}`);
   });
 });
