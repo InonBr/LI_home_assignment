@@ -1,12 +1,12 @@
 version: '3'
 services:
   mongo:
-    container_name: mongo_db
-    image: mongo:latest
+    container_name: mongo
+    image: mongo
     ports:
       - '27017:27017'
     volumes:
-      - './mongo:/data/db'
+      - ./data/mongo:/data/db
 
   backend:
     container_name: back_end
